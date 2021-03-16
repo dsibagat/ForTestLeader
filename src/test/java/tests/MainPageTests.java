@@ -10,7 +10,11 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static helpers.DriverHelper.getConsoleLogs;
 import static io.qameta.allure.Allure.step;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @Feature("Main page content")
 @Tag("web")
@@ -61,5 +65,14 @@ public class MainPageTests extends TestBase {
 
         step("Close img", () ->
                 $("[title='Close (Esc)']").click());
+    }
+
+    @Test
+    @DisplayName("Console log should not have any errors")
+    void consoleLogShouldNotHaveErrors() {
+        open("");
+
+        String consoleLogs = getConsoleLogs();
+        assertThat(consoleLogs, not(containsString("SEVERE")));
     }
 }
