@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
@@ -15,51 +16,50 @@ import static io.qameta.allure.Allure.step;
 @Tag("web")
 public class MainPageTests extends TestBase {
     @Test
-    @DisplayName("Page should have title Serrala Wins TMI Award")
+    @DisplayName("Page should have title Honest testing")
     void titlePageTest() {
-        open("");
+        step("Open main page", () ->
+                open(""));
 
-        $(".slick-active .huge-title").shouldHave(text("Serrala Wins TMI Award"));
+        step("Change language to en", () ->
+                $(".lazyloaded[title=English]").click());
+
+        step("Check that title is shown", () ->
+                $(byText("Honest testing")).shouldBe(visible));
     }
 
     @Test
     @DisplayName("Page blocks should be loaded")
     void baseBlocksLoadedTest() {
-        open("");
+        step("Open main page in en language", () ->
+                open("/?lang=en"));
 
-        $("#paragrah--item--3").shouldBe(visible);
-        $("#paragrah--item--4").shouldBe(visible);
-        $("#paragrah--item--927").shouldBe(visible);
-        $("#paragrah--item--6").shouldBe(visible);
-        $("#paragrah--item--4402").shouldBe(visible);
-        $("#serrala-footer").shouldBe(visible);
+        step("Check that page blocks are loaded", () -> {
+            $("#content").shouldHave(
+                    text("About Us"),
+                    text("Our Mission"),
+                    text("Our Values"),
+                    text("Our Services"),
+                    text("Our Works"),
+                    text("Our Clients"),
+                    text("Our Vacancies"),
+                    text("Our Coordinates"));
+        });
     }
 
     @Test
-    @DisplayName("Page should change language")
-    void changeLanguageTest() {
-        open("");
-
-        $(".de").click();
-
-        $(".slick-active .huge-title").shouldHave(text("Serrala bezieht SkyCampus"));
-    }
-
-    @Test
-    @DisplayName("Check sub-items in submenu \"ABOUT US\"")
+    @DisplayName("Check our clients img is shown")
     void submenuAboutUsIsShownTest() {
         step("Open main page", () ->
                 open(""));
 
-        step("Open submenu \"ABOUT US\"", () ->
-                $(".menu-icon-132").hover());
+        step("Click on client img", () ->
+                $("div.owl-stage").click());
 
-        step("Check that submenu is shown", () ->
-                $(".open").shouldHave(
-                        text("Management"),
-                        text("Awards"),
-                        text("Careers"),
-                        text("News"),
-                        text("Contact")));
+        step("Check that img is shown", () ->
+                $(".active-item img.pswp__img").shouldBe(visible));
+
+        step("Close img", () ->
+                $("[title='Close (Esc)']").click());
     }
 }
