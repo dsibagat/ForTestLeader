@@ -1,15 +1,14 @@
-# Autotests https://www.serrala.com page
+# Autotests https://stesting.ru page
 ## Main page test are implemented
 - [X] - Main title text is shown
 - [X] - All blocks should be loaded
 - [X] - Page should change language
-- [X] - Sub-items in submenu is shown
-
-## EMEA Positions page test are implemented
-- [X] - Page should be opened from Main page
-- [X] - Page should be opened with direct link
+- [X] - Clients img is shown
 - [X] - Console log should not have any errors
-- [X] - Search positions is work
+
+## Booking page test are implemented
+- [X] - Room for holyday is found
+- [X] - Autorisation by google is implemented
 
 ## Added tests video
 ![Video](src/test/resources/files/test-video.gif)
