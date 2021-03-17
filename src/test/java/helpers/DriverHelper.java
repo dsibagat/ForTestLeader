@@ -13,7 +13,7 @@ import static org.openqa.selenium.logging.LogType.BROWSER;
 
 public class DriverHelper {
     public static void configureDriver() {
-        addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+        addListener("allure", new AllureSelenide());
 
         Configuration.baseUrl = ConfigHelper.getWebUrl();
         Configuration.startMaximized = true;
