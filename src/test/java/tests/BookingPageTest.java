@@ -23,7 +23,7 @@ public class BookingPageTest extends TestBase {
         open("https://www.booking.com");
 
         //Выбрать место отдыха
-        $("#ss").val("london");
+        $("#ss").val("london ");
         $(byText("Central London")).click();
 
         //Выбрать даты для отдыха
@@ -51,7 +51,7 @@ public class BookingPageTest extends TestBase {
         });
 
         step("Verify successful authorization", () ->
-                $(withText("Where to next,")).shouldBe(visible));
+                $(byText("Where to next, ForBook?")).shouldBe(visible));
     }
 
 }
